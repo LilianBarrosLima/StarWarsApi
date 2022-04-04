@@ -1,13 +1,27 @@
 package com.apiStarwars.entities;
 
+import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity(name = "COLOR")
-public class Color {
+public class Color implements Serializable{
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -15,34 +29,6 @@ public class Color {
 	private Integer color_Id;
 
 	@Column(name = "color_name")
-	private String color_name;
-
-	public Integer getColor_Id() {
-		return color_Id;
-	}
-
-	public void setColor_Id(Integer color_Id) {
-		this.color_Id = color_Id;
-	}
-
-	public String getColor_name() {
-		return color_name;
-	}
-
-	public void setColor_name(String color_name) {
-		this.color_name = color_name;
-	}
-
-	public Color(Integer color_Id, String color_name) {
-		super();
-		this.color_Id = color_Id;
-		this.color_name = color_name;
-	}
-
-	public Color() {
-		// TODO Auto-generated constructor stub
-	}
-	
-	
+	private String color_name;	
 	
 }

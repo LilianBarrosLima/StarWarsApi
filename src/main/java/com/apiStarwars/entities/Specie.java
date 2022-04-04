@@ -1,13 +1,25 @@
 package com.apiStarwars.entities;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity(name = "SPECIE")
-public class Specie {
+public class Specie implements Serializable{
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,21 +28,5 @@ public class Specie {
 
 	@Column(name = "species")
 	private String species;
-
-	public Integer getSpecies_Id() {
-		return species_Id;
-	}
-
-	public void setSpecies_Id(Integer species_Id) {
-		this.species_Id = species_Id;
-	}
-
-	public String getSpecies() {
-		return species;
-	}
-
-	public void setSpecies(String species) {
-		this.species = species;
-	}
 
 }

@@ -1,5 +1,6 @@
 package com.apiStarwars.entities;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -25,8 +26,9 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "PEOPLE")
-public class People {
-		
+public class People implements Serializable{
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "id")
@@ -47,19 +49,19 @@ public class People {
 
 	@CreationTimestamp
 	@Temporal(TemporalType.TIMESTAMP)
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'", timezone = "GMT")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'", timezone = "GMT-3")
 	@Column(name = "created")
 	private Date created;
 	
 	@UpdateTimestamp
 	@Temporal(TemporalType.TIMESTAMP)
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'", timezone = "GMT")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'", timezone = "GMT-3")
 	@Column(name = "edited")
 	private Date edited;
 	
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "gender_Id") 
+	@OneToOne(cascade = CascadeType.ALL)//the persistence will propagate (cascade) all EntityManager operations (PERSIST, REMOVE, REFRESH, MERGE, DETACH) 
+	@JoinColumn(name = "gender_Id") 	
 	private Gender gender;
 	
 	@OneToOne(cascade = CascadeType.ALL)
@@ -69,6 +71,7 @@ public class People {
 	@OneToMany(mappedBy="people_c_hair")
 	@JsonManagedReference
 	private List<Hair_color> hair_colors;
+
 	
 	@OneToMany(mappedBy="people_c_eye")
 	@JsonManagedReference
@@ -83,7 +86,8 @@ public class People {
 		// TODO Auto-generated constructor stub
 	}
 
-	public People(String name, Integer height, Integer mass, String birth, Gender gender, Specie specie, List<Hair_color> hair_colors, List<Eye_color> eye_colors,
+	public People(String name, Integer height, Integer mass, String birth, Gender gender, 
+			Specie specie, List<Hair_color> hair_colors, List<Eye_color> eye_colors,
 			List<Skin_color> skin_colors) {
 		
 		super();
@@ -158,14 +162,15 @@ public class People {
 	public void setSpecie(Specie specie) {
 		this.specie = specie;
 	}
-
-	public List<Hair_color> getHair_colors() {
+		
+	 public List<Hair_color> getHair_colors() {	 
 		return hair_colors;
 	}
 
 	public void setHair_colors(List<Hair_color> hair_colors) {
 		this.hair_colors = hair_colors;
 	}
+
 
 	public List<Eye_color> getEye_colors() {
 		return eye_colors;
