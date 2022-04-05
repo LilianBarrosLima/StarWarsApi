@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -57,8 +58,7 @@ public class People implements Serializable{
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'", timezone = "GMT-3")
 	@Column(name = "edited")
-	private Date edited;
-	
+	private Date edited;	
 	
 	@OneToOne(cascade = CascadeType.ALL)//the persistence will propagate (cascade) all EntityManager operations (PERSIST, REMOVE, REFRESH, MERGE, DETACH) 
 	@JoinColumn(name = "gender_Id") 	
@@ -71,7 +71,6 @@ public class People implements Serializable{
 	@OneToMany(mappedBy="people_c_hair")
 	@JsonManagedReference
 	private List<Hair_color> hair_colors;
-
 	
 	@OneToMany(mappedBy="people_c_eye")
 	@JsonManagedReference
@@ -80,6 +79,10 @@ public class People implements Serializable{
 	@OneToMany(mappedBy="people_c_skin")
 	@JsonManagedReference
 	private List<Skin_color> skin_colors;
+//films	
+	@ManyToMany(mappedBy="person")
+	@JsonManagedReference
+	private List<Films> films;
 	
 	
 	public People() {
@@ -88,7 +91,7 @@ public class People implements Serializable{
 
 	public People(String name, Integer height, Integer mass, String birth, Gender gender, 
 			Specie specie, List<Hair_color> hair_colors, List<Eye_color> eye_colors,
-			List<Skin_color> skin_colors) {
+			List<Skin_color> skin_colors, List<Films> films) {
 		
 		super();
 		this.name = name;
@@ -100,6 +103,7 @@ public class People implements Serializable{
 		this.hair_colors = hair_colors;
 		this.eye_colors = eye_colors;
 		this.skin_colors = skin_colors;
+		this.films = films;
 	}
 
 	public Integer getPersonId() {
@@ -186,6 +190,14 @@ public class People implements Serializable{
 
 	public void setSkin_colors(List<Skin_color> skin_colors) {
 		this.skin_colors = skin_colors;
+	}
+
+	public List<Films> getFilms() {
+		return films;
+	}
+
+	public void setFilms(List<Films> films) {
+		this.films = films;
 	}
 	
 	
